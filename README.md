@@ -4,6 +4,10 @@ A Streamlit application that classifies an email or SMS message as **spam** or
 **ham** (legitimate). The model uses TF-IDF features and a Multinomial Naive
 Bayes classifier trained on the included SMS spam dataset.
 
+## Live demo
+
+Try the deployed application: [SMS Spam Classifier](https://sms-spam-classifier31.streamlit.app/)
+
 ## Run locally
 
 Python 3.9 or newer is recommended.
