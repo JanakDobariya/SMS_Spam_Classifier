@@ -10,7 +10,9 @@ Try the deployed application: [SMS Spam Classifier](https://sms-spam-classifier3
 
 ## Run locally
 
-Python 3.9 or newer is recommended.
+Use Python 3.12 or newer with the pinned dependencies below. The saved model
+and vectorizer were generated with scikit-learn 1.9.0; keep that version aligned
+when retraining or deploying.
 
 ```bash
 python3 -m venv .venv
@@ -30,6 +32,15 @@ python3 train_model.py
 
 This evaluates the classifier on a held-out test set, retrains it with all
 available messages, and regenerates `model.pkl` and `vectorizer.pkl`.
+
+## Smoke tests
+
+```bash
+python3 -m unittest discover -s tests
+```
+
+These tests load the saved artifacts and exercise blank input, a legitimate
+message, and a spam message through the Streamlit interface.
 
 ## Project structure
 
