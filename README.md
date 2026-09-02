@@ -10,7 +10,7 @@ Try the deployed application: [SMS Spam Classifier](https://sms-spam-classifier3
 
 ## Run locally
 
-Use Python 3.12 or newer with the pinned dependencies below. The saved model
+Use Python 3.12 or 3.14 with the pinned dependencies below. The saved model
 and vectorizer were generated with scikit-learn 1.9.0; keep that version aligned
 when retraining or deploying.
 
@@ -39,8 +39,26 @@ available messages, and regenerates `model.pkl` and `vectorizer.pkl`.
 python3 -m unittest discover -s tests
 ```
 
-These tests load the saved artifacts and exercise blank input, a legitimate
-message, and a spam message through the Streamlit interface.
+These tests check fitted artifacts, matching scikit-learn versions, preprocessing,
+startup, blank input, and legitimate/spam messages through the Streamlit interface.
+An optional GitHub Actions configuration is in `ci/classifier-checks.yml.example`.
+To enable automated checks on Python 3.12 and 3.14, copy it to
+`.github/workflows/tests.yml` using credentials with GitHub workflow permissions.
+
+## Streamlit Community Cloud
+
+Deploy the `main` branch with `app.py` as the entrypoint. Keep `requirements.txt`
+at the repository root and install all its dependencies, not just Streamlit.
+The first prediction downloads NLTK's small English stopwords corpus if missing;
+later predictions reuse it. This first request therefore needs internet access.
+
+If the deployed page reports `ModuleNotFoundError` even after a dependency fix
+was pushed, open **Manage app**, check the build log, and choose **Reboot app**
+from its menu to force a fresh environment. Refreshing the browser alone does
+not reinstall missing packages. See the [Streamlit reboot guide](https://docs.streamlit.io/deploy/streamlit-community-cloud/manage-your-app/reboot-your-app).
+
+PyArrow is pinned to 24.0.0 to match the working cloud environment; the September
+2026 cloud build log replaced 25.0.1 automatically because of a known crash.
 
 ## Project structure
 

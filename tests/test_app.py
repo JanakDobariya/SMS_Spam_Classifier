@@ -19,6 +19,11 @@ class ClassifierSmokeTests(unittest.TestCase):
         self.app.button[0].click().run()
         self.assertFalse(self.app.exception)
 
+    def test_initial_page(self):
+        self.assertEqual(self.app.title[0].value, "Email/SMS Spam Classifier")
+        self.assertEqual(len(self.app.success), 0)
+        self.assertEqual(len(self.app.error), 0)
+
     def test_empty_message(self):
         self.classify("   ")
         self.assertEqual(self.app.warning[0].value, "Please enter a message first.")
